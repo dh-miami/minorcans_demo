@@ -71,9 +71,6 @@
             } else if (item.format.includes('record')) {
                 itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
                 itemDownload = findFileLink(item) != "" ? '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
-            } else if (item.website_link) {
-                itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
-                itemDownload = '<a href="https://google.es" target="_blank" class="btn btn-outline-primary" title="Object download">Download Object</a>';
             } else {
                 /* fall back to no preview if it doesn't know the format */
                 itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
@@ -102,22 +99,6 @@
     {% - else -%}
     if (item[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + item[{{ f.field | jsonify } }]+ '" target="_blank" rel="noopener">' + item[{{ f.field | jsonify }}]+ '</a>{% else %}' + item[{{ f.field | jsonify }}]+ '{% endif %}</dd>'; }
     {% endif %} {% endfor %}
-    /*Prueba  */
-    // Add external website link if it exists
-    if (item.format === "Website" && item.website) {
-        document.getElementById("item-content").innerHTML = `
-    <div class="text-center my-4">
-      <iframe 
-        src="${item.website}" 
-        width="100%" 
-        height="600" 
-        style="border: 1px solid #ccc;"
-        title="Embedded site for ${item.title}">
-      </iframe>
-      <p class="mt-2"><a href="${item.website}" target="_blank">Visit full site</a></p>
-    </div>`;
-    }
-    /* Fin Prueba  */
     fields += '</dl>';
     return fields;
     };
